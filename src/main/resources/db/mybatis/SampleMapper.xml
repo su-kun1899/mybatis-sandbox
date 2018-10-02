@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="red.sukun1899.kotlin.mybatis.sandbox.repository.SampleRepository">
+<mapper namespace="red.sukun1899.mybatis.sandbox.repository.SampleRepository">
 
     <select id="findAll" resultMap="sample">
         SELECT p.id, p.name
         FROM parent p
     </select>
 
-    <resultMap id="sample" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
+    <resultMap id="sample" type="red.sukun1899.mybatis.sandbox.repository.Sample">
         <constructor>
             <idArg name="id" column="id"/>
             <arg name="name" column="name"/>
@@ -30,7 +30,7 @@
                  INNER JOIN child c ON p.id = c.parent_id
     </select>
 
-    <resultMap id="sample2" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample2">
+    <resultMap id="sample2" type="red.sukun1899.mybatis.sandbox.repository.Sample2">
         <constructor>
             <idArg name="id" column="id"/>
             <arg name="name" column="name"/>

@@ -1,4 +1,4 @@
-package red.sukun1899.kotlin.mybatis.sandbox.repository
+package red.sukun1899.mybatis.sandbox.repository
 
 import org.apache.ibatis.annotations.Mapper
 import org.springframework.stereotype.Repository

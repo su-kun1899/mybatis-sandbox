@@ -1,4 +1,4 @@
-package red.sukun1899.kotlin.mybatis.sandbox
+package red.sukun1899.mybatis.sandbox
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

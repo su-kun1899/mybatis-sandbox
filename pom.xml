@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>red.sukun1899</groupId>
-    <artifactId>mybatis-kotlin-sandbox</artifactId>
+    <artifactId>mybatis-sandbox</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>mybatis-kotlin-sandbox</name>
+    <name>mybatis-sandbox</name>
     <description>Demo project for Spring Boot + MyBatis</description>
 
     <parent>
