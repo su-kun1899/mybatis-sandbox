@@ -61,7 +61,7 @@ class SampleRepositorySpec extends Specification {
         new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
     }
 
-    def "他に手はないか？"() {
+    def "ネストしたプロパティだけvarにすれば逃げられる"() {
         given:
         def parentId1 = UUID.randomUUID().toString()
         def parentId2 = UUID.randomUUID().toString()
@@ -92,17 +92,14 @@ class SampleRepositorySpec extends Specification {
         sample.id == parentId1
         sample.name == "parent1"
         sample.childNames.size() == 2
-        sample.childNames.first() == "child1"
-        sample.childNames[1] == "child2"
+        sample.childNames.containsAll(["child1", "child2"])
 
         and:
         def sample2 = actual[1]
         sample2.id == parentId2
         sample2.name == "parent2"
         sample2.childNames.size() == 3
-        sample2.childNames.first() == "child3"
-        sample2.childNames[1] == "child4"
-        sample2.childNames[2] == "child5"
+        sample2.childNames.containsAll(["child3", "child4", "child5"])
 
         cleanup:
         new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
