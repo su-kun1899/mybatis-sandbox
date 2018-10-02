@@ -5,8 +5,8 @@
 <mapper namespace="red.sukun1899.kotlin.mybatis.sandbox.repository.SampleRepository">
 
     <select id="findAll" resultType="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
-        SELECT *
-        FROM parent
+        SELECT p.id
+        FROM parent p
     </select>
 
 </mapper>
