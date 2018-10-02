@@ -3,3 +3,5 @@ spring:
     url: jdbc:h2:mem:testdb?MODE=PostgreSQL
     username: sa
     driver-class-name: org.h2.Driver
+mybatis:
+  mapper-locations: db/mybatis/**/*.xml
