@@ -39,6 +39,11 @@ class SampleRepositorySpec extends Specification {
         expect:
         sampleRepository.findAll().size() == 1
 
+        and:
+        def sample = sampleRepository.findAll().first()
+        sample.id == parentId
+        sample.name == "parent1"
+
         cleanup:
         new DbSetup(dataSourceDestination, Operations.deleteAllFrom("parent")).launch()
     }

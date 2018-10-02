@@ -4,9 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="red.sukun1899.kotlin.mybatis.sandbox.repository.SampleRepository">
 
-    <select id="findAll" resultType="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
-        SELECT p.id
+    <select id="findAll" resultMap="sample">
+        SELECT p.id, p.name
         FROM parent p
     </select>
+
+    <resultMap id="sample" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
+        <constructor>
+            <arg name="id" column="id"/>
+            <arg name="name" column="name"/>
+        </constructor>
+    </resultMap>
 
 </mapper>
