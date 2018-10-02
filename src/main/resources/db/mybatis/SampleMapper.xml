@@ -24,4 +24,16 @@
         WHERE c.parent_id = #{id}
     </select>
 
+    <select id="findSample2" resultMap="sample2">
+        SELECT p.id, p.name
+        FROM parent p
+    </select>
+
+    <resultMap id="sample2" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample2">
+        <constructor>
+            <idArg name="id" column="id"/>
+            <arg name="name" column="name"/>
+        </constructor>
+    </resultMap>
+
 </mapper>

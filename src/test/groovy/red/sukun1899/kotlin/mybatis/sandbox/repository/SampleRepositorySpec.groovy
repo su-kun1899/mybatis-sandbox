@@ -26,7 +26,7 @@ class SampleRepositorySpec extends Specification {
         dataSourceDestination = new DataSourceDestination(dataSource)
     }
 
-    def "Hello, mybatis"() {
+    def "MyBatisだけでconstrucotインジェクションさせる"() {
         given:
         def parentId1 = UUID.randomUUID().toString()
         def parentId2 = UUID.randomUUID().toString()
@@ -43,16 +43,54 @@ class SampleRepositorySpec extends Specification {
         def operations = Operations.sequenceOf(insertParent, insertChild)
         new DbSetup(dataSourceDestination, operations).launch()
 
-        expect:
-        sampleRepository.findAll().size() == 2
+        when:
+        def actual = sampleRepository.findAll()
+
+        then:
+        actual.size() == 2
 
         and:
-        def sample = sampleRepository.findAll().first()
+        def sample = actual.first()
         sample.id == parentId1
         sample.name == "parent1"
         sample.childNames.size() == 2
         sample.childNames.first() == "child1"
         sample.childNames[1] == "child2"
+
+        cleanup:
+        new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
+    }
+
+    def "他に手はないか？"() {
+        given:
+        def parentId1 = UUID.randomUUID().toString()
+        def parentId2 = UUID.randomUUID().toString()
+        def insertParent = Operations.insertInto("parent")
+                .columns("id", "name")
+                .values(parentId1, "parent1")
+                .values(parentId2, "parent2")
+                .build()
+        def insertChild = Operations.insertInto("child")
+                .columns("id", "parent_id", "name")
+                .values(UUID.randomUUID().toString(), parentId1, "child1")
+                .values(UUID.randomUUID().toString(), parentId1, "child2")
+                .build()
+        def operations = Operations.sequenceOf(insertParent, insertChild)
+        new DbSetup(dataSourceDestination, operations).launch()
+
+        when:
+        def actual = sampleRepository.findSample2()
+
+        then:
+        actual.size() == 2
+
+        and:
+        def sample = actual.first()
+        sample.id == parentId1
+        sample.name == "parent1"
+//        sample.childNames.size() == 2
+//        sample.childNames.first() == "child1"
+//        sample.childNames[1] == "child2"
 
         cleanup:
         new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
