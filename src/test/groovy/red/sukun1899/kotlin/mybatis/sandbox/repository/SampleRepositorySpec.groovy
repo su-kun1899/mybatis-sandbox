@@ -33,7 +33,11 @@ class SampleRepositorySpec extends Specification {
                 .columns("id", "name")
                 .values(parentId, "parent1")
                 .build()
-        def operations = Operations.sequenceOf(insertParent)
+        def insertChild = Operations.insertInto("child")
+                .columns("id", "parent_id", "name")
+                .values(UUID.randomUUID().toString(), parentId, "child1")
+                .build()
+        def operations = Operations.sequenceOf(insertParent, insertChild)
         new DbSetup(dataSourceDestination, operations).launch()
 
         expect:
@@ -43,8 +47,9 @@ class SampleRepositorySpec extends Specification {
         def sample = sampleRepository.findAll().first()
         sample.id == parentId
         sample.name == "parent1"
+        sample.childName == "child1"
 
         cleanup:
-        new DbSetup(dataSourceDestination, Operations.deleteAllFrom("parent")).launch()
+        new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
     }
 }

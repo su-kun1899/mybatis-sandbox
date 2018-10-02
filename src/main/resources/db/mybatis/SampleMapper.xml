@@ -5,14 +5,16 @@
 <mapper namespace="red.sukun1899.kotlin.mybatis.sandbox.repository.SampleRepository">
 
     <select id="findAll" resultMap="sample">
-        SELECT p.id, p.name
+        SELECT p.id, p.name, c.name AS child_name
         FROM parent p
+                 INNER JOIN child c ON p.id = c.parent_id
     </select>
 
     <resultMap id="sample" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
         <constructor>
             <arg name="id" column="id"/>
             <arg name="name" column="name"/>
+            <arg name="childName" column="child_name"/>
         </constructor>
     </resultMap>
 

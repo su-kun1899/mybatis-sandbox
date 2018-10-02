@@ -12,4 +12,4 @@ interface SampleRepository {
     fun findAll(): List<Sample>
 }
 
-data class Sample(val id: String, val name: String)
+data class Sample(val id: String, val name: String, val childName: String)
