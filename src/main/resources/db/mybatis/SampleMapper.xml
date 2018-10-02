@@ -5,17 +5,23 @@
 <mapper namespace="red.sukun1899.kotlin.mybatis.sandbox.repository.SampleRepository">
 
     <select id="findAll" resultMap="sample">
-        SELECT p.id, p.name, c.name AS child_name
+        SELECT p.id, p.name
         FROM parent p
-                 INNER JOIN child c ON p.id = c.parent_id
     </select>
 
     <resultMap id="sample" type="red.sukun1899.kotlin.mybatis.sandbox.repository.Sample">
         <constructor>
-            <arg name="id" column="id"/>
+            <idArg name="id" column="id"/>
             <arg name="name" column="name"/>
-            <arg name="childName" column="child_name"/>
+            <!-- このやりかただとN+1になってしまう -->
+            <arg name="childNames" select="findChildNamesByParentId" column="id"/>
         </constructor>
     </resultMap>
+
+    <select id="findChildNamesByParentId" resultType="java.lang.String">
+        SELECT c.name AS child_name
+        FROM child c
+        WHERE c.parent_id = #{id}
+    </select>
 
 </mapper>

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository
 @Mapper
 @Repository
 interface SampleRepository {
+    // N+1は起きるが、MyBatisのconstructorで解決できる
     fun findAll(): List<Sample>
 }
 
-data class Sample(val id: String, val name: String, val childName: String)
+data class Sample(val id: String, val name: String, val childNames: List<String>)
