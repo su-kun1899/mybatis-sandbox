@@ -17,4 +17,6 @@ interface SampleRepository {
 
 data class Sample(val id: String, val name: String, val childNames: List<String>)
 
-data class Sample2(val id: String, val name: String)
+data class Sample2(val id: String, val name: String) {
+    var childNames = mutableListOf<String>()
+}

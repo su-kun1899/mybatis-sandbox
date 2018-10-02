@@ -74,6 +74,9 @@ class SampleRepositorySpec extends Specification {
                 .columns("id", "parent_id", "name")
                 .values(UUID.randomUUID().toString(), parentId1, "child1")
                 .values(UUID.randomUUID().toString(), parentId1, "child2")
+                .values(UUID.randomUUID().toString(), parentId2, "child3")
+                .values(UUID.randomUUID().toString(), parentId2, "child4")
+                .values(UUID.randomUUID().toString(), parentId2, "child5")
                 .build()
         def operations = Operations.sequenceOf(insertParent, insertChild)
         new DbSetup(dataSourceDestination, operations).launch()
@@ -88,9 +91,18 @@ class SampleRepositorySpec extends Specification {
         def sample = actual.first()
         sample.id == parentId1
         sample.name == "parent1"
-//        sample.childNames.size() == 2
-//        sample.childNames.first() == "child1"
-//        sample.childNames[1] == "child2"
+        sample.childNames.size() == 2
+        sample.childNames.first() == "child1"
+        sample.childNames[1] == "child2"
+
+        and:
+        def sample2 = actual[1]
+        sample2.id == parentId2
+        sample2.name == "parent2"
+        sample2.childNames.size() == 3
+        sample2.childNames.first() == "child3"
+        sample2.childNames[1] == "child4"
+        sample2.childNames[2] == "child5"
 
         cleanup:
         new DbSetup(dataSourceDestination, Operations.deleteAllFrom("child", "parent")).launch()
