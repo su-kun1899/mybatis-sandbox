@@ -1,4 +1,4 @@
-package red.sukun1899.kotlin.mybatis.sandbox.mybatis
+package red.sukun1899.kotlin.mybatis.sandbox.repository
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
