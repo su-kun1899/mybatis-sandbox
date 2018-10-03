@@ -26,7 +26,7 @@ class SampleRepositorySpec extends Specification {
         dataSourceDestination = new DataSourceDestination(dataSource)
     }
 
-    def "MyBatisだけでconstrucotインジェクションさせる"() {
+    def "MyBatisだけでconstructorインジェクションさせる"() {
         given:
         def parentId1 = UUID.randomUUID().toString()
         def parentId2 = UUID.randomUUID().toString()
