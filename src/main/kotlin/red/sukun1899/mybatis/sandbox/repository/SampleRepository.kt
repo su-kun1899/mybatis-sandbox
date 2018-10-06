@@ -2,6 +2,8 @@ package red.sukun1899.mybatis.sandbox.repository
 
 import org.apache.ibatis.annotations.Mapper
 import org.springframework.stereotype.Repository
+import red.sukun1899.mybatis.sandbox.data.Sample
+import red.sukun1899.mybatis.sandbox.data.Sample2
 
 /**
  * @author su-kun1899
@@ -14,10 +16,4 @@ interface SampleRepository {
 
     // 入れ子だけvarにする逃げの一手
     fun findSample2(): List<Sample2>
-}
-
-data class Sample(val id: String, val name: String, val childNames: List<String>)
-
-data class Sample2(val id: String, val name: String, var childNames: List<String>) {
-    constructor(id: String, name: String) : this(id, name, mutableListOf())
 }

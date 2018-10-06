@@ -9,7 +9,7 @@
         FROM parent p
     </select>
 
-    <resultMap id="sample" type="red.sukun1899.mybatis.sandbox.repository.Sample">
+    <resultMap id="sample" type="red.sukun1899.mybatis.sandbox.data.Sample">
         <constructor>
             <idArg name="id" column="id"/>
             <arg name="name" column="name"/>
@@ -24,13 +24,7 @@
         WHERE c.parent_id = #{id}
     </select>
 
-    <select id="findSample2" resultMap="sample2">
-        SELECT p.id, p.name, c.name AS child_name
-        FROM parent p
-                 INNER JOIN child c ON p.id = c.parent_id
-    </select>
-
-    <resultMap id="sample2" type="red.sukun1899.mybatis.sandbox.repository.Sample2">
+    <resultMap id="sample2" type="red.sukun1899.mybatis.sandbox.data.Sample2">
         <constructor>
             <idArg name="id" column="id"/>
             <arg name="name" column="name"/>
@@ -40,5 +34,11 @@
             <result column="child_name"/>
         </collection>
     </resultMap>
+
+    <select id="findSample2" resultMap="sample2">
+        SELECT p.id, p.name, c.name AS child_name
+        FROM parent p
+                 INNER JOIN child c ON p.id = c.parent_id
+    </select>
 
 </mapper>
